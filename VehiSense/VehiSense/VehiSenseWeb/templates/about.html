@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>PhotoFolio Bootstrap Template - About</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets2/img/logo.png' %}" rel="icon">
+  <link href="{% static 'assets2/img/logo.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets2/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets2/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets2/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets2/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets2/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets2/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: PhotoFolio
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="./" class="logo d-flex align-items-center  me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="{% static 'assets2/img/logo.png' %}" alt="">
+        <!-- <i class="bi bi-camera"></i> -->
+        <h1>SDG</h1>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="{% url 'about' %}" class="active">About</a></li>
+          <li class="dropdown"><a href="#"><span>Dashboard</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav><!-- .navbar -->
+
+      <div class="header-social-links">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main id="main" data-aos="fade" data-aos-delay="1500">
+
+    <!-- ======= End Page Header ======= -->
+    <div class="page-header d-flex align-items-center">
+      <div class="container position-relative">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h2>About</h2>
+            <p>LEAVE NO ONE BEHIND—this phrase was the guiding principle of world leaders of 193 countries in solving the most pressing problems of today. This was also actually the official motto set by the United Nations (UN) for the Sustainable Development Goals (SDGs)</p>
+            <a class="cta-btn" href="https://sdgs.un.org/" target="_blank">SDG Website</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Page Header -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-4">
+            <img src="{% static 'assets2/img/sdg_index.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-5 content">
+            <h2>MISSION STATEMENT</h2>
+            <p class="fst-italic py-3">
+                The Division for Sustainable Development Goals (DSDG) in the United Nations Department of Economic and Social Affairs (UNDESA) acts as the Secretariat for the SDGs, providing substantive support and capacity-building for the goals and their related thematic issues, including water, energy, climate, oceans, urbanization, transport, science and technology, the Global Sustainable Development Report (GSDR), partnerships and Small Island Developing States. DSDG plays a key role in the evaluation of UN systemwide implementation of the 2030 Agenda and on advocacy and outreach activities relating to the SDGs.
+            </p>
+        </div>
+        <div class="row gy-4 justify-content-center">
+            <div class="col-lg-4">
+                <img src="{% static 'assets2/img/sdg_infographics.png' %}" class="img-fluid" alt="" style="width: 100%; max-width: 300px;">
+            </div>
+            <h2>POLICY ANALYSIS</h2>
+            <p class="py-3">
+                The Division's work provides analytical inputs for intergovernmental deliberations on sustainable development, including through its science-policy interface. The Division leads the drafting of Secretary-General’s reports on sustainable development topics. It contributes studies and analytical inputs to the review of major conferences related to sustainable development. For this purpose, it undertakes reviews of assessments of sustainable development challenges. The Division has led the pilot versions of the Global Sustainable Development Report, which aims to strengthen the science-policy interface at the HLPF. It investigates integrated policy responses in a number of priority areas such as sustainable development goals, technology facilitation, green economy, sustainable transport, sustainable cities, oceans, climate change in the context of sustainable development and the nexus among energy, food and water. The Division also co-hosts - on behalf of DESA - the secretariat for the Technology Facilitation Mechanism, including its annual multi-stakeholder forum on Science, Technology and Innovation for SDGs (STI Forum), together with UNEP.
+            </p>
+            <h2>CAPACITY DEVELOPMENT, INCLUDING SUPPORTING NATIONAL VOLUNTARY REVIEWS</h2>
+            <p class="m-0">
+                Capacity development is targeted towards translating decisions of UN intergovernmental bodies related to sustainable development into actual policies and actions on the ground. The Division, with support from its two offices away from the Headquarters, and in collaboration with other UN entities and UN country teams, focuses on supporting Member States in preparing their voluntary national reviews at the High-level Political Forum on Sustainable Development, as well as building capacity for integrated planning and policy design, linking to the national planning process key sectoral areas such as transport, agriculture, energy, water and sanitation, sustainable cities, waste management and disaster reduction, as appropriate. These activities in turn allow the Division to inform intergovernmental bodies on the relevance and impact of normative and analytical efforts at the national, regional and global levels.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+   <!-- End Testimonials Section -->
+
+  </main><!-- End #main -->
+
+   <!-- ======= Footer ======= -->
+   <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>SDG</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
+        Designed by <a href="https://facebook.com/kiyojiii">CJV</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader">
+    <div class="line"></div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets2/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets2/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets2/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets2/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets2/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets2/js/main.js' %}"></script>
+
+</body>
+
+</html>
