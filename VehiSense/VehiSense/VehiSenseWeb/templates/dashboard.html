@@ -25,7 +25,6 @@
   <link rel="stylesheet" href="{% static 'vendors/themify-icons/css/themify-icons.css'%}">
   <link rel="stylesheet" href="{% static 'sadm/vendors/flag-icon-css/css/flag-icon.min.css'%}">
   <link rel="stylesheet" href="{% static 'sadm/vendors/selectFX/css/cs-skin-elastic.css'%}">
-  <link rel="stylesheet" href="{% static 'sadm/vendors/jqvmap/dist/jqvmap.min.css' %}">
 
   <script src="https://kit.fontawesome.com/334c45a40c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{% static 'sadm/assets/css/style.css'%}">
@@ -34,14 +33,13 @@
   <!-- Include SweetAlert 2 library -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
 
 
   <!-- Left Panel -->
-
   <aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
 
@@ -64,24 +62,24 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa-solid fa-bullseye"></i>Goals</a>
             <ul class="sub-menu children dropdown-menu">
               <li><i class="fa-solid fa-globe"></i><a href="{% url 'all_goals'%}">All Goals</a></li>
-              <li><i class="fa-solid fa-earth-asia"></i><a href="">All Countries</a></li>
-              <li><i class="fa-solid fa-circle-plus"></i><a href="">Add Goals</a></li>
-              <li><i class="fa-solid fa-location-dot"></i><a href="">Add Country</a></li>
+              <li><i class="fa-solid fa-earth-asia"></i><a href="{% url 'all_countries' %}">All Countries</a></li>
+              <li><i class="fa-solid fa-circle-plus"></i><a href="{% url 'add_goals' %}">Add Goals</a></li>
+              <li><i class="fa-solid fa-location-dot"></i><a href="{% url 'add_country' %}">Add Country</a></li>
             </ul>
           </li>
           <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                 class="menu-icon fa-solid fa-list"></i>SDG List</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="fa-solid fa-table"></i><a href="">SDG Tables</a></li>
-              <li><i class="fa-solid fa-table-list"></i><a href="">SDG Per Country</a></li>
+              <li><i class="fa-solid fa-table"></i><a href="{% url 'all_sdg' %}">SDG Tables</a></li>
+              <li><i class="fa-solid fa-table-list"></i><a href="{% url 'add_sdg' %}">Add SDG</a></li>
             </ul>
           </li>
           <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa-solid fa-chart-simple"></i>Visualization</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="fa-solid fa-chart-pie"></i><a href=""></a></li>
-              <li><i class="fa-solid fa-chart-area"></i><a href="">Car Types</a></li>
+              <li><i class="fa-solid fa-chart-line"></i><a href="{% url 'first_charts' %}">SDG Index Score (2022)</a></li>
+              <li><i class="fa-solid fa-chart-bar"></i><a href="{% url 'second_charts' %}">SDG Index High - Low</a></li>
             </ul>
           </li>
           <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
@@ -277,9 +275,7 @@
                     <span class="count">{{ total_sdg_records }}</span>
                 </h4>
                 <p class="text-light">SDG Records</p>
-                <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                    <canvas id="widgetChart1"></canvas>
-                </div>
+             
             </div>
         </div>
     </div>
@@ -303,9 +299,7 @@
                 </h4>
                 <p class="text-light"> AVG Index Score</p>
     
-                <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                    <canvas id="widgetChart2"></canvas>
-                </div>
+             
             </div>
         </div>
     </div>
@@ -329,9 +323,7 @@
                 </h4>
                 <p class="text-light">Total Countries</p>
     
-                <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                    <canvas id="widgetChart3"></canvas>
-                </div>
+            
             </div>
         </div>
     </div>
@@ -355,143 +347,68 @@
                 </h4>
                 <p class="text-light">Total Goals</p>
     
-                <div class="chart-wrapper px-3" style="height:70px;" height="70">
-                    <canvas id="widgetChart4"></canvas>
-                </div>
+             
             </div>
         </div>
     </div>
     
-      <!-- /.col -->
-
-      <div class="col-lg-3 col-md-6">
-        <div class="social-box facebook">
-          <img src="{% static 'assets2/img/logo.png' %}" alt="total_vehicles" class="total_vehicles" width="220px" height="150px">
-          <!-- <ul>
-            <li>
-              <span class="count">40</span> k
-              <span>friends</span>
-            </li>
-            <li>
-              <span class="count">450</span>
-              <span>feeds</span>
-            </li>
-          </ul> -->
-        </div>
-        <!-- /social-box -->
-      </div>
-      <!-- /.col -->
-
-
-      <div class="col-lg-3 col-md-6">
-        <div class="social-box twitter">
-          <img src="{% static 'assets2/img/sdg_avg.png' %}" alt="sold_vehicles" class="sold_vehicles" width="220px" height="150px">
-          <!-- <ul>
-            <li>
-              <span class="count">30</span> k
-              <span>friends</span>
-            </li>
-            <li>
-              <span class="count">450</span>
-              <span>tweets</span>
-            </li>
-          </ul> -->
-        </div>
-      <!-- /social-box -->
-      </div>
-      <!-- /.col -->
-
-
-      <div class="col-lg-3 col-md-6">
-        <div class="social-box linkedin">
-          <img src="{% static 'assets2/img/sdg_country.png' %}" alt="total_customers" class="total_customers" width="220px" height="150px">
-          <!-- <ul>
-            <li>
-              <span class="count">40</span> +
-              <span>contacts</span>
-            </li>
-            <li>
-              <span class="count">250</span>
-              <span>feeds</span>
-            </li>
-          </ul> -->
-        </div>
-      <!--/social-box-->
-      </div>
-      <!--/.col-->
-
-
-      <div class="col-lg-3 col-md-6">
-        <div class="social-box google-plus">
-          <img src="{% static 'assets2/img/sdg_index.png' %}" alt="total_users" class="total_users" width="220px" height="150px">
-          <!-- <ul>
-            <li>
-              <span class="count">94</span> k
-              <span>followers</span>
-            </li>
-            <li>
-              <span class="count">92</span>
-              <span>circles</span>
-            </li>
-          </ul> -->
-        </div>
-      <!--/social-box-->
-      </div>
-      <!--/.col-->
 
       <div class="col-xl-6">
         <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-4">
-                <h4 class="card-title mb-0">Traffic</h4>
-                <div class="small text-muted">October 2017</div>
+              <div class="card-header">
+                <h4>SDG Top 5 Country With Highest Average Index Score</h4>
               </div>
-              <!--/.col-->
-              <div class="col-sm-8 hidden-sm-down">
-                <button type="button" class="btn btn-primary float-right bg-flat-color-1"><i
-                    class="fa fa-cloud-download"></i></button>
-                <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-                  <div class="btn-group mr-3" data-toggle="buttons" aria-label="First group">
-                    <label class="btn btn-outline-secondary">
-                      <input type="radio" name="options" id="option1"> Day
-                    </label>
-                    <label class="btn btn-outline-secondary active">
-                      <input type="radio" name="options" id="option2" checked=""> Month
-                    </label>
-                    <label class="btn btn-outline-secondary">
-                      <input type="radio" name="options" id="option3"> Year
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <!--/.col-->
-
-
-            </div>
-            <!--/.row-->
-
             <div class="chart-wrapper mt-4">
               <canvas id="avgSdgChart" width="400" height="200"></canvas>
           </div>
-
-          </div>
         </div>
-      </div>
+      </div>   
 
       <div class="col-xl-6">
         <div class="card">
-          <div class="card-header">
-            <h4>World</h4>
-          </div>
-          <div class="Vector-map-js">
-            <div id="vmap" class="vmap" style="height: 265px;"></div>
+              <div class="card-header">
+                <h4>SDG Top 5 Country With Lowest Average Index Score</h4>
+              </div>
+            <div class="chart-wrapper mt-4">
+              <canvas id="avgSdgChartLow" width="400" height="200"></canvas>
           </div>
         </div>
-        <!-- /# card -->
+      </div>   
+
+      <div>
+        <div class="card" style="width: 100%; justify-content: center;">
+            <div class="card-header">
+                <h4>SDG Average Index Score Per Year</h4>
+            </div>
+            <div>
+              <canvas id="avgScoreByYearChart" width="300" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>SDG Average Score Per Goal (2000 - 2022)</h4>
+        </div>
+          <canvas id="avgGoalScoresPieChart" width="400" height="200"></canvas>
+        <div>
+        </div>
       </div>
+    </div>
 
-
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header">
+          <h4>Year With Highest SDG Goals (2022)</h4>
+        </div>
+          <canvas id="HighestSdgGoalYear" width="400" height="200"></canvas>
+        <div>
+        </div>
+      </div>
+    </div>
+     
+      
     </div> <!-- .content -->
   </div><!-- /#right-panel -->
 
@@ -501,33 +418,9 @@
   <script src="{% static 'sadm/vendors/popper.js/dist/umd/popper.min.js'%}"></script>
   <script src="{% static 'sadm/vendors/bootstrap/dist/js/bootstrap.min.js'%}"></script>
   <script src="{% static 'sadm/assets/js/main.js'%}"></script>
-
-
-  <script src="{% static 'sadm/vendors/chart.js/dist/Chart.bundle.min.js'%}"></script>
   <script src="{% static 'sadm/assets/js/dashboard.js'%}"></script>
   <script src="{% static 'sadm/assets/js/widgets.js'%}"></script>
-  <script src="{% static 'sadm/vendors/jqvmap/dist/jquery.vmap.min.js'%}"></script>
-  <script src="{% static 'sadm/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js'%}"></script>
-  <script src="{% static 'sadm/vendors/jqvmap/dist/maps/jquery.vmap.world.js'%}"></script>
   
-  <script>
-    (function ($) {
-      "use strict";
-
-      jQuery('#vmap').vectorMap({
-        map: 'world_en',
-        backgroundColor: null,
-        color: '#ffffff',
-        hoverOpacity: 0.7,
-        selectedColor: '#1de9b6',
-        enableZoom: true,
-        showTooltip: true,
-        values: 1,
-        scaleColors: ['#1de9b6', '#03a9f5'],
-        normalizeFunction: 'polynomial'
-      });
-    })(jQuery);
-  </script>
 
   <!-- Profile Modal -->
   <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
@@ -582,14 +475,365 @@
   </div>
 
   <script>
-    $(document).ready(function () {
-      $('#imageModal').on('show.bs.modal', function (event) {
-        var link = $(event.relatedTarget);
-        var imageSrc = link.find('img.thumbnail').attr('data-src');
-        $('#modalImage').attr('src', imageSrc);
-      });
+    document.addEventListener("DOMContentLoaded", function () {
+      // Parse the data passed from the view
+      var highest_goal_year = [[68.64555555555555, 59.78888888888887, 69.45388888888893, 76.44944444444451, 63.09166666666667, 66.18333333333328, 61.208888888888914, 71.9566666666667, 51.773333333333305, 56.04166666666664, 71.88444444444445, 80.21166666666669, 82.52111111111111, 50.50444444444444, 66.1138888888889, 61.18833333333331, 60.78111111111113]];
+  
+      // Ensure avgGoalScoreData is not null or undefined
+      if (!highest_goal_year) {
+        console.error("Error: highest_goal_year is null or undefined.");
+        return;
+      }
+  
+      // Flatten the list and create labels for each goal
+      var goalLabels = Array.from({ length: highest_goal_year[0].length }, (_, i) => `Goal ${i + 1}`);
+      var avgGoalScores = highest_goal_year[0];
+  
+      // Configuration for the pie chart
+      var config = {
+        type: "doughnut",
+        data: {
+          labels: goalLabels,
+          datasets: [{
+            data: avgGoalScores,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.8)',
+              'rgba(255, 159, 64, 0.8)',
+              'rgba(255, 205, 86, 0.8)',
+              'rgba(75, 192, 192, 0.8)',
+              'rgba(54, 162, 235, 0.8)',
+              'rgba(153, 102, 255, 0.8)',
+              'rgba(201, 203, 207, 0.8)',
+              'rgba(0, 128, 0, 0.8)',     // Green
+              'rgba(128, 0, 128, 0.8)',  // Purple
+              'rgba(0, 128, 128, 0.8)',  // Teal
+              'rgba(255, 0, 0, 0.8)',    // Red
+              'rgba(0, 255, 0, 0.8)',    // Lime
+              'rgba(0, 0, 255, 0.8)',    // Blue
+              'rgba(255, 0, 255, 0.8)',  // Fuchsia
+              'rgba(255, 165, 0, 0.8)',  // Orange
+              'rgba(255, 20, 147, 0.8)', // Deep Pink
+              'rgba(128, 128, 0, 0.8)'   // Olive
+            ]
+          }]
+        }
+      };
+  
+      // Get the canvas element
+      var ctx = document.getElementById("HighestSdgGoalYear").getContext("2d");
+  
+      // Create the pie chart
+      var HighestSdgGoalYear = new Chart(ctx, config);
     });
   </script>
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Parse the data passed from the view
+        var avgSdgDataString = '{{ avg_sdg_data_low|safe }}';
+        var avgSdgDataLow = JSON.parse(avgSdgDataString.replace(/'/g, '"'));
+
+        console.log(avgSdgDataLow);  // Add this line for debugging
+
+        // Ensure avgSdgData is not null or undefined
+        if (!avgSdgDataLow) {
+            console.error("Error: avgSdgData is null or undefined.");
+            return;
+        }
+
+        // Extract labels and data from avgSdgData
+        var countryCodes = avgSdgDataLow.map(entry => entry[0]);
+        var avgSdgScores = avgSdgDataLow.map(entry => entry[1]);
+
+        // Configuration for the horizontal bar chart
+        var config = {
+            type: 'bar',
+            data: {
+                labels: countryCodes,
+                datasets: [{
+                    label: 'Average Index Score (2000-2022)',
+                    data: avgSdgScores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 122, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 122, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        maxTicksLimit: 10  // Set the maximum number of ticks on the y-axis
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Lowest Average Index Score (2000-2022)',
+                        position: 'top'
+                    },
+                    legend: {
+                        display: false  // To hide the legend
+                    }
+                }
+            }
+        };
+
+        // Get the canvas element
+        var ctx = document.getElementById('avgSdgChartLow').getContext('2d');
+
+        // Create the bar chart
+        var avgSdgChartLow = new Chart(ctx, config);
+    });
+</script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Parse the data passed from the view
+      var avgGoalScoreData = [[64.82, 57.74, 64.05, 71.99, 55.80, 63.96, 57.34, 69.84, 37.11, 52.37, 69.93, 79.68, 81.93, 48.57, 64.66, 62.19, 55.54]];
+  
+      // Ensure avgGoalScoreData is not null or undefined
+      if (!avgGoalScoreData) {
+        console.error("Error: avgGoalScoreData is null or undefined.");
+        return;
+      }
+  
+      // Flatten the list and create labels for each goal
+      var goalLabels = Array.from({ length: avgGoalScoreData[0].length }, (_, i) => `Goal ${i + 1}`);
+      var avgGoalScores = avgGoalScoreData[0];
+  
+      // Configuration for the pie chart
+      var config = {
+        type: "polarArea",
+        data: {
+          labels: goalLabels,
+          datasets: [{
+            data: avgGoalScores,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.8)',
+              'rgba(255, 159, 64, 0.8)',
+              'rgba(255, 205, 86, 0.8)',
+              'rgba(75, 192, 192, 0.8)',
+              'rgba(54, 162, 235, 0.8)',
+              'rgba(153, 102, 255, 0.8)',
+              'rgba(201, 203, 207, 0.8)',
+              'rgba(0, 128, 0, 0.8)',     // Green
+              'rgba(128, 0, 128, 0.8)',  // Purple
+              'rgba(0, 128, 128, 0.8)',  // Teal
+              'rgba(255, 0, 0, 0.8)',    // Red
+              'rgba(0, 255, 0, 0.8)',    // Lime
+              'rgba(0, 0, 255, 0.8)',    // Blue
+              'rgba(255, 0, 255, 0.8)',  // Fuchsia
+              'rgba(255, 165, 0, 0.8)',  // Orange
+              'rgba(255, 20, 147, 0.8)', // Deep Pink
+              'rgba(128, 128, 0, 0.8)'   // Olive
+            ]
+          }]
+        }
+      };
+  
+      // Get the canvas element
+      var ctx = document.getElementById("avgGoalScoresPieChart").getContext("2d");
+  
+      // Create the pie chart
+      var avgGoalScoresPieChart = new Chart(ctx, config);
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Parse the data passed from the view
+        var avgScoreByYearDataString = '{{ avg_score_by_year_data|safe }}';
+        var avgScoreByYearData = JSON.parse(avgScoreByYearDataString.replace(/'/g, '"'));
+    
+        console.log(avgScoreByYearData);  // Add this line for debugging
+    
+        // Ensure avgScoreByYearData is not null or undefined
+        if (!avgScoreByYearData) {
+            console.error("Error: avgScoreByYearData is null or undefined.");
+            return;
+        }
+    
+        // Extract labels and data from avgScoreByYearData
+        var years = avgScoreByYearData.map(entry => entry[0]);
+        var avgScores = avgScoreByYearData.map(entry => entry[1]);
+    
+        // Configuration for the line chart
+        var config = {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Average Index Score (2000-2022)',
+                    data: avgScores,
+                    backgroundColor:   
+                    [
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 205, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(201, 203, 207, 0.8)',
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 205, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(201, 203, 207, 0.8)',
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 205, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(201, 203, 207, 0.8)'
+                    ],
+                    borderColor:
+                    [
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 205, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(201, 203, 207, 0.8)',
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 205, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(201, 203, 207, 0.8)',
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 205, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(201, 203, 207, 0.8)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+          scales: {
+              x: {
+                  type: 'linear',
+                  position: 'bottom',
+                  ticks: {
+                      stepSize: 1,
+                      min: 2000,
+                      max: 2022,
+                      autoSkip: false  // Set autoSkip to false to display all years
+                  }
+              },
+              y: {
+                  beginAtZero: true,
+                  min: 50,
+                  max: 80
+              }
+          }
+          }
+        };
+    
+        // Get the canvas element
+        var ctx = document.getElementById('avgScoreByYearChart').getContext('2d');
+    
+        // Create the line chart
+        var avgScoreByYearChart = new Chart(ctx, config);
+    });
+    </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Parse the data passed from the view
+        var avgSdgDataString = '{{ avg_sdg_data|safe }}';
+        var avgSdgData = JSON.parse(avgSdgDataString.replace(/'/g, '"'));
+
+        console.log(avgSdgData);  // Add this line for debugging
+
+        // Ensure avgSdgData is not null or undefined
+        if (!avgSdgData) {
+            console.error("Error: avgSdgData is null or undefined.");
+            return;
+        }
+
+        // Extract labels and data from avgSdgData
+        var countryCodes = avgSdgData.map(entry => entry[0]);
+        var avgSdgScores = avgSdgData.map(entry => entry[1]);
+
+        // Configuration for the horizontal bar chart
+        var config = {
+            type: 'bar',
+            data: {
+                labels: countryCodes,
+                datasets: [{
+                    label: 'Average Index Score (2000-2022)',
+                    data: avgSdgScores,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 122, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 122, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        maxTicksLimit: 10  // Set the maximum number of ticks on the y-axis
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Highest Average Index Score (2000-2022)',
+                        position: 'top'
+                    },
+                    legend: {
+                        display: false  // To hide the legend
+                    }
+                }
+            }
+        };
+
+        // Get the canvas element
+        var ctx = document.getElementById('avgSdgChart').getContext('2d');
+
+        // Create the bar chart
+        var avgSdgChart = new Chart(ctx, config);
+    });
+</script>
 
 </body>
 {% if messages %}

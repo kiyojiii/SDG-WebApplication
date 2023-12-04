@@ -73,7 +73,6 @@
 <body>
 
     <!-- Left Panel -->
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
     
@@ -92,10 +91,10 @@
                 <a href="{% url 'dashboard'%}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
               </li>
               <h3 class="menu-title">Menu</h3><!-- /.menu-title -->
-              <li class="menu-item-has-children dropdown open-dropdown active">
+              <li class="menu-item-has-children dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa-solid fa-bullseye"></i>Goals</a>
                 <ul class="sub-menu children dropdown-menu">
-                  <li class="active"><i class="fa-solid fa-globe"></i><a href="{% url 'all_goals'%}">All Goals</a></li>
+                  <li><i class="fa-solid fa-globe"></i><a href="{% url 'all_goals'%}">All Goals</a></li>
                   <li><i class="fa-solid fa-earth-asia"></i><a href="{% url 'all_countries' %}">All Countries</a></li>
                   <li><i class="fa-solid fa-circle-plus"></i><a href="{% url 'add_goals' %}">Add Goals</a></li>
                   <li><i class="fa-solid fa-location-dot"></i><a href="{% url 'add_country' %}">Add Country</a></li>
@@ -105,15 +104,15 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                     class="menu-icon fa-solid fa-list"></i>SDG List</a>
                 <ul class="sub-menu children dropdown-menu">
-                  <li><i class="fa-solid fa-table"></i><a href="">SDG Tables</a></li>
-                  <li><i class="fa-solid fa-table-list"></i><a href="">SDG Per Country</a></li>
+                  <li><i class="fa-solid fa-table"></i><a href="{% url 'all_sdg' %}">SDG Tables</a></li>
+                  <li><i class="fa-solid fa-table-list"></i><a href="{% url 'add_sdg' %}">Add SDG</a></li>
                 </ul>
               </li>
               <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa-solid fa-chart-simple"></i>Visualization</a>
                 <ul class="sub-menu children dropdown-menu">
-                  <li><i class="fa-solid fa-chart-pie"></i><a href=""></a></li>
-                  <li><i class="fa-solid fa-chart-area"></i><a href="">Car Types</a></li>
+                  <li><i class="fa-solid fa-chart-line"></i><a href="{% url 'first_charts' %}">SDG Index Score (2022)</a></li>
+                  <li><i class="fa-solid fa-chart-bar"></i><a href="{% url 'second_charts' %}">SDG Index High - Low</a></li>
                 </ul>
               </li>
               <h3 class="menu-title">Extras</h3><!-- /.menu-title -->

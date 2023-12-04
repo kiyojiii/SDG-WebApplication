@@ -35,6 +35,95 @@ def dashboard(request):
 
         # Execute raw SQL queries to get data directly from MySQL
         with connection.cursor() as cursor:
+            # QUERY 5 AVG SCORE HIGHEST
+            query = """
+            SELECT country_code, AVG(sdg_index_score) as avg_sdg_index
+            FROM sdg
+            WHERE year BETWEEN 2000 AND 2022
+            GROUP BY country_code
+            ORDER BY avg_sdg_index DESC
+            LIMIT 5;
+            """
+            cursor.execute(query)
+            avg_sdg_data = cursor.fetchall()
+
+              # QUERY 5 AVG SCORE LOWEST
+            query = """
+            SELECT country_code, AVG(sdg_index_score) as avg_sdg_index
+            FROM sdg
+            WHERE year BETWEEN 2000 AND 2022
+            GROUP BY country_code
+            ORDER BY avg_sdg_index ASC
+            LIMIT 5;
+            """
+            cursor.execute(query)
+            avg_sdg_data_low = cursor.fetchall()           
+
+            # Query to get the average sdg_index_score per year
+            cursor.execute("""
+                SELECT year, AVG(sdg_index_score) as avg_score
+                FROM sdg
+                WHERE year BETWEEN 2000 AND 2022
+                GROUP BY year
+                ORDER BY year
+            """)
+            avg_score_by_year_data = cursor.fetchall()
+
+            # Query to get the average goal scores per year
+            cursor.execute("""
+                SELECT 
+                    AVG(goal_1_score) AS avg_goal_1_score,
+                    AVG(goal_2_score) AS avg_goal_2_score,
+                    AVG(goal_3_score) AS avg_goal_3_score,
+                    AVG(goal_4_score) AS avg_goal_4_score,
+                    AVG(goal_5_score) AS avg_goal_5_score,
+                    AVG(goal_6_score) AS avg_goal_6_score,
+                    AVG(goal_7_score) AS avg_goal_7_score,
+                    AVG(goal_8_score) AS avg_goal_8_score,
+                    AVG(goal_9_score) AS avg_goal_9_score,
+                    AVG(goal_10_score) AS avg_goal_10_score,
+                    AVG(goal_11_score) AS avg_goal_11_score,
+                    AVG(goal_12_score) AS avg_goal_12_score,
+                    AVG(goal_13_score) AS avg_goal_13_score,
+                    AVG(goal_14_score) AS avg_goal_14_score,
+                    AVG(goal_15_score) AS avg_goal_15_score,
+                    AVG(goal_16_score) AS avg_goal_16_score,
+                    AVG(goal_17_score) AS avg_goal_17_score
+                FROM sdg
+            """)
+            avg_goal_score_by_year_data = cursor.fetchall()
+
+            # Query to get the year with highest goal score
+            cursor.execute("""
+            SELECT year,
+                AVG(goal_1_score) AS avg_goal_1_score,
+                AVG(goal_2_score) AS avg_goal_2_score,
+                AVG(goal_3_score) AS avg_goal_3_score,
+                AVG(goal_4_score) AS avg_goal_4_score,
+                AVG(goal_5_score) AS avg_goal_5_score,
+                AVG(goal_6_score) AS avg_goal_6_score,
+                AVG(goal_7_score) AS avg_goal_7_score,
+                AVG(goal_8_score) AS avg_goal_8_score,
+                AVG(goal_9_score) AS avg_goal_9_score,
+                AVG(goal_10_score) AS avg_goal_10_score,
+                AVG(goal_11_score) AS avg_goal_11_score,
+                AVG(goal_12_score) AS avg_goal_12_score,
+                AVG(goal_13_score) AS avg_goal_13_score,
+                AVG(goal_14_score) AS avg_goal_14_score,
+                AVG(goal_15_score) AS avg_goal_15_score,
+                AVG(goal_16_score) AS avg_goal_16_score,
+                AVG(goal_17_score) AS avg_goal_17_score
+            FROM sdg
+            GROUP BY year
+            ORDER BY 
+                (AVG(goal_1_score) + AVG(goal_2_score) + AVG(goal_3_score) + AVG(goal_4_score) + AVG(goal_5_score) +
+                AVG(goal_6_score) + AVG(goal_7_score) + AVG(goal_8_score) + AVG(goal_9_score) + AVG(goal_10_score) +
+                AVG(goal_11_score) + AVG(goal_12_score) + AVG(goal_13_score) + AVG(goal_14_score) + AVG(goal_15_score) +
+                AVG(goal_16_score) + AVG(goal_17_score)) / 17 DESC
+            LIMIT 1; 
+            """)
+            highest_goal_year = cursor.fetchall()             
+
             # Query to get the total count of records in the SDG table
             cursor.execute("SELECT COUNT(*) FROM sdg")
             total_sdg_records = cursor.fetchone()[0]
@@ -62,7 +151,13 @@ def dashboard(request):
             'total_country_records': total_country_records,
             'avg_sdg_index_score': avg_sdg_index_score,
             'total_goal_records': total_goal_records,
+            'avg_sdg_data': json.dumps(avg_sdg_data),
+            'avg_sdg_data_low': json.dumps(avg_sdg_data_low),
+            'avg_score_by_year_data': json.dumps(avg_score_by_year_data),
+            'avg_goal_score_by_year_data': json.dumps(avg_goal_score_by_year_data),
+            'highest_goal_year': json.dumps(highest_goal_year),
         }
+        print(avg_score_by_year_data)  # Add this line for debugging
     else:
         messages.success(request, "Please log in to access the dashboard.")
         return redirect('login')  # Redirect to the login page with the message
